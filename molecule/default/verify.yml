@@ -1,0 +1,22 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  
+  # Проверка наличия конфига
+  tasks:
+  - name: "get path config"
+    stat:
+      path: "/vector.yml"
+    register: file_vector
+  - name: "check if /file exists"
+    assert:
+      that:
+        - file_vector.stat.exists == True
+      success_msg: "/vector.yml exists"
+      fail_msg: "/vector.yml doesn't exist"
+
+  # - name: check config availability
+  #   validate: vector validate --no-environment --config-yaml vector.yml

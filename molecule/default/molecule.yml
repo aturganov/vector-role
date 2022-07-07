@@ -1,0 +1,20 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  # - name: instance_ubuntu 
+  #   image: "docker.io/pycontribs/ubuntu"
+  #   pre_build_image: true
+  - name: instance_centos
+    image: "docker.io/pycontribs/centos:7"
+    pre_build_image: true
+    command: /sbin/init
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

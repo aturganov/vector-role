@@ -12,7 +12,7 @@
     ansible.builtin.yum:
       name:
         - vector-{{ vector_version }}.rpm
-    notify: start vector.service
+      state: present
   - name: Vector | Template config    
     ansible.builtin.template:
       src: vector.yml.j2
@@ -20,7 +20,7 @@
       mode: "0644"
       owner: "{{ ansible_user_id }}"
       group: "{{ ansible_user_gid }}"
-      # validate: vector validate --no-environment --config-yaml %s
+      validate: vector validate --no-environment --config-yaml %s
   - name: vector | create unit
     become: true
     ansible.builtin.template:
@@ -33,5 +33,9 @@
     ansible.builtin.systemd:
       name: vector
       state: started
-        # daemon_reload: true 
-
+      enabled: yes
+      daemon_reload: yes 
+  # - name: Ensure vector is running
+  #   ansible.builtin.service:
+  #     name: vector
+  #     state: started

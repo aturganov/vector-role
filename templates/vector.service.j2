@@ -5,7 +5,8 @@ Requires=network-online.target
 [Service]
 User={{ ansible_user_id }}
 Group={{ ansible_user_gid }}
-ExecStart=/usr/bin/vector --config-yaml /home/locadm/vector.yml -w
+#ExecStart=/usr/bin/vector --config-yaml /home/locadm/vector.yml -w
+ExecStart=/usr/bin/vector --config-yaml /vector.yml -w
 Restart=always
 [Install]
 WantedBy=multi-user.target
